@@ -12,9 +12,12 @@
         </p>
     </div>
 
-  <form #form="ngForm">
+    <button (click)="toggleDropdown()">really?</button>
+    <span *ngIf="currentGui.inputs">{{currentGui.inputs[0].name}}</span>
+
+  <form [formGroup]="form">
     <pfng-wizard-step [config]="stepGithubImportPickOrganisation">
-      <organisation-step [gui]= "currentGui"></organisation-step>
+      <organisation-step [gui]="currentGui" [form]="form"></organisation-step>
     </pfng-wizard-step>
 
     <pfng-wizard-step [config]="stepGithubRepositories">

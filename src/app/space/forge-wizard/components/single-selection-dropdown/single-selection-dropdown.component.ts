@@ -1,28 +1,58 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { Input as GuiInput, Option } from "app/space/forge-wizard/gui.model";
+import { FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
   selector: 'single-selection-dropdown',
   templateUrl: './single-selection-dropdown.component.html',
-  styleUrls: [ './single-selection-dropdown.component.less' ]
+  styleUrls: [ './single-selection-dropdown.component.less' ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SingleSelectionDropDownComponent),
+      multi: true
+    }
+  ]
 })
-export class SingleSelectionDropDownComponent implements OnInit, OnDestroy {
+export class SingleSelectionDropDownComponent implements ControlValueAccessor {
 
   @Input() field: GuiInput;
-  constructor() {
-    console.log("::::::::::::::Single-Selection-Dropdown field constructor"+JSON.stringify(this.field));
+  model: string;
+  showDropdown: boolean = false;
+
+  onModelChange: Function = (_: any) => {
+  };
+
+  onModelTouched: Function = () => {
+  };
+
+  constructor() {}
+
+  writeValue(value: any): void {
+    if (value !== undefined) {
+      this.model = value;
+    }
   }
 
-  ngOnInit() {
-    console.log("::::::::::::::Single-Selection-Dropdown field ngInit"+JSON.stringify(this.field));
-    this.field.display = {open: false};
+  registerOnChange(fn: any): void {
+    this.onModelChange = fn;
   }
 
-  ngOnDestroy() {
+  registerOnTouched(fn: any): void {
+    this.onModelTouched = fn;
   }
 
-  display() {
-    console.log(":::::SELECTED FIELD:::"+ this.field.value);
+  setSelected(option: Option) {
+    this.model = option.id;
+    this.onModelChange(this.model);
+  }
+
+  isSelected(option: Option): boolean {
+    return this.model === option.id;
+  }
+
+  toggleDropdown(): void {
+    this.showDropdown = !this.showDropdown;
   }
 
 }
