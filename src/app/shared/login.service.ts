@@ -46,6 +46,12 @@ export class LoginService {
         this.authService.logout();
       }
     });
+
+    this.broadcaster.on('loggedin').subscribe(() => {
+      this.userService.loggedInUser.subscribe((user) => {
+        window['EventBus'].dispatch('loggedin', user);
+      });
+    });
   }
 
   redirectToAuth() {
