@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "noEmitHelpers": true,
+    // "noEmitHelpers": true,
     "strictNullChecks": false,
     "noUnusedLocals": false,
     "skipLibCheck": true,
@@ -37,5 +37,8 @@
   },
   "compileOnSave": false,
   "buildOnSave": false,
-  "atom": { "rewriteTsconfig": false }
+  "atom": { "rewriteTsconfig": false },
+  "declaration": true,
+  "noEmitHelpers": false,
+  "isolatedModules": false
 }

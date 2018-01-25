@@ -81,7 +81,7 @@ module.exports = function (options) {
       'polyfills': './src/polyfills.browser.ts',
       'vendor': './src/vendor.browser.ts',
       // 'main': aotMode ? './src/main.browser.aot.ts' : './src/main.browser.ts'
-      'main': './src/main.browser.ts'
+      'fabric8': './src/main.browser.ts'
     },
 
     /*

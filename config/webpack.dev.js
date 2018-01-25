@@ -106,7 +106,8 @@ module.exports = function (options) {
        */
       path: helpers.root('dist'),
 
-      publicPath: METADATA.PUBLIC_PATH,
+      // publicPath: METADATA.PUBLIC_PATH,
+      publicPath: 'http://localhost:3000/',
 
       /**
        * Specifies the name of each output file on disk.
@@ -114,7 +115,7 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-filename
        */
-      filename: '[name].bundle.js',
+      filename: '[name].js',
 
       /**
        * The filename of the SourceMaps for the JavaScript files.
@@ -131,9 +132,9 @@ module.exports = function (options) {
        */
       chunkFilename: '[id].chunk.js',
 
-      library: 'ac_[name]',
+      library: '[name]',
+      libraryTarget: "amd"
 
-      libraryTarget: 'var'
     },
 
     module: {
@@ -249,6 +250,14 @@ module.exports = function (options) {
         "/_p/oso/apis/*": cloneDeep(OSO_CORS_PROXY),
         "/_p/oso/oapi/*": cloneDeep(OSO_CORS_PROXY),
         "/_p/oso/swaggerapi/*": cloneDeep(OSO_CORS_PROXY)
+      },
+      headers: {
+        "Content-Type": "charset=UTF-8",
+        "Link" : `<http://localhost:3000/fabric8.js>;rel="fragment-script", <http://localhost:3000/vendor.js>;rel="fragment-script", <http://localhost:3000/polyfills.js>;rel="fragment-script", <http://localhost:3000/vendor.css>; rel="stylesheet"`,
+        "Access-Control-Allow-Origin": "http://localhost:8081",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, x-id, Content-Length, X-Requested-With",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
       }
     },
 
