@@ -10,7 +10,6 @@ import {
 } from 'ngx-forge';
 import { AUTH_API_URL, AuthenticationService } from 'ngx-login-client';
 
-import { KeycloakTokenProvider } from '../forge-wizard/service/token-provider';
 import { AppLauncherRoutingModule } from './app-launcher-routing.module';
 import { AppLauncherComponent } from './app-launcher.component';
 import { CreateAppModule } from './create-app/create-app.module';
@@ -28,11 +27,6 @@ import { NewForgeConfig } from './shared/new-forge.config';
   providers: [
     HelperService,
     { provide: Config, useClass: NewForgeConfig },
-    {
-      provide: TokenProvider,
-      useFactory: (auth: AuthenticationService) => new KeycloakTokenProvider(auth),
-      deps: [AuthenticationService]
-    },
     {
       provide: AuthHelperService,
       useFactory: (AUTH_API_URL) => new AuthAPIProvider(AUTH_API_URL),
